@@ -111,7 +111,7 @@ const minzoomWater = (f) => {
 
 const lut = {
   // 1. nature
-  osm_planet_landuse_natural_large: f => {
+  landuse_naturallarge_a: f => {
     f.tippecanoe = {
       layer: 'nature-l',
       minzoom: 11,
@@ -123,7 +123,7 @@ const lut = {
     delete f.properties['ungsc_mission']
     return f
   },
-  osm_planet_landuse_natural_medium: f => {
+  landuse_naturalmedium_a: f => {
     f.tippecanoe = {
       layer: 'nature-m',
       minzoom: 8,
@@ -138,7 +138,7 @@ const lut = {
   },
 
 // 2. water
-  osm_planet_water: f => {
+  water_all_a: f => {
     f.tippecanoe = {
       layer: 'watera',
       minzoom: minzoomWater(f),
@@ -155,7 +155,7 @@ const lut = {
     delete f.properties['ne_mission']
     return f
   },
-  osm_planet_waterways_small: f => {
+  waterways_small_l: f => {
     f.tippecanoe = {
       layer: 'water',
       minzoom: 7,
@@ -167,7 +167,7 @@ const lut = {
     delete f.properties['ungsc_mission']
     return f
   },
-  osm_planet_waterways_large: f => {
+  waterways_large_l: f => {
     f.tippecanoe = {
       layer: 'water',
       minzoom: 11,
@@ -181,7 +181,7 @@ const lut = {
   },
 
 // 4. road
-  osm_planet_major_roads: f => {
+  roads_major_l: f => {
     f.tippecanoe = {
       layer: 'road',
       minzoom: minzoomRoad(f),
@@ -192,7 +192,18 @@ const lut = {
     delete f.properties['ungsc_mission']
     return f
   },
-  osm_planet_minor_roads: f => {
+  roads_minor_l: f => {
+    f.tippecanoe = {
+      layer: 'road',
+      minzoom: minzoomRoad(f),
+      maxzoom: 15
+    }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
+    return f
+  },
+  roads_other_l: f => {
     f.tippecanoe = {
       layer: 'road',
       minzoom: minzoomRoad(f),
@@ -204,7 +215,7 @@ const lut = {
     return f
   },
   // 5. railway
-  osm_planet_railways: f => {
+  railways_all_l: f => {
     f.tippecanoe = {
       layer: 'railway',
       minzoom: 9,
@@ -217,7 +228,7 @@ const lut = {
     return f
   },
   // 6. route
-  osm_planet_ferries: f => {
+  ferries_all_l: f => {
     f.tippecanoe = {
       layer: 'ferry',
       minzoom: 6,
@@ -229,7 +240,7 @@ const lut = {
     return f
   },
   // 7. structure
-  osm_planet_runways: f => {
+  runways_all_l: f => {
     f.tippecanoe = {
       layer: 'runway',
       minzoom: 11,
@@ -240,7 +251,7 @@ const lut = {
     delete f.properties['ungsc_mission']
     return f
   },
-  osm_planet_highway_areas: f => {
+  roads_all_a: f => {
     f.tippecanoe = {
       layer: 'highway_area',
       minzoom: flap(f, 10),
@@ -251,7 +262,7 @@ const lut = {
     delete f.properties['ungsc_mission']
     return f
   },
-  osm_planet_transport_areas: f => {
+  pois_transport_a: f => {
     f.tippecanoe = {
       layer: 'trans_area',
       minzoom: flap(f, 10),
@@ -263,7 +274,7 @@ const lut = {
     return f
   },
   // 8. building
-  osm_planet_landuse_urban: f => {
+  landuse_urban_a: f => {
     f.tippecanoe = {
       layer: 'lu_urban',
       minzoom: 10,
@@ -320,7 +331,7 @@ const lut = {
     return f
   },
   // 9. place
-  osm_planet_pois_heritage: f => {
+  pois_heritage_p : f => {
     f.tippecanoe = {
     layer: 'poi',
     minzoom: 13,
@@ -329,7 +340,7 @@ const lut = {
     delete f.properties['class']
   return f
   },
-  osm_planet_pois_other: f => {
+  pois_other_p: f => {
     if (f.properties.fclass == 'station'){
         f.properties.fclass = 'p_station'
     }
@@ -341,7 +352,7 @@ const lut = {
   return f
     delete f.properties['class']
   },
-  osm_planet_pois_public: f => {
+  pois_public_p: f => {
     f.tippecanoe = {
     layer: 'poi',
     minzoom: 11,
@@ -350,7 +361,7 @@ const lut = {
   delete f.properties['class']
   return f
   },
-  osm_planet_pois_services: f => {
+  pois_services_p: f => {
     f.tippecanoe = {
     layer: 'poi',
     minzoom: 13,
@@ -359,7 +370,7 @@ const lut = {
   delete f.properties['class']
   return f
   },
-  osm_planet_pois_traffic: f => {
+  pois_traffic_p: f => {
     f.tippecanoe = {
     layer: 'poi',
     minzoom: 13,
@@ -368,7 +379,7 @@ const lut = {
   delete f.properties['class']
   return f
   },
-  osm_planet_pois_transport: f => {
+  pois_transport_p: f => {
     f.tippecanoe = {
     layer: 'poi_trans',
     maxzoom: 15
@@ -383,7 +394,7 @@ const lut = {
   delete f.properties['class']
   return f
   },
-  osm_planet_pois_water: f => {
+  pois_water_p: f => {
     f.tippecanoe = {
     layer: 'poi',
     minzoom: 15,
@@ -392,7 +403,7 @@ const lut = {
   delete f.properties['class']
   return f
   },
-  osm_planet_pois_worship: f => {
+  pois_worship_p: f => {
     f.tippecanoe = {
     layer: 'poi',
     minzoom: 13,
@@ -401,7 +412,7 @@ const lut = {
   delete f.properties['class']
   return f
   },
-  osm_planet_worship_area_p: f => {
+  pois_worship_ap: f => {
     f.tippecanoe = {
       layer: 'worship',
       minzoom: 13,
@@ -410,7 +421,7 @@ const lut = {
    delete f.properties['class']
     return f
  },
-  osm_planet_barrier_lines: f => {
+  barriers_all_l: f => {
     f.tippecanoe = {
       layer: 'barrier',
       minzoom: 15,
@@ -419,7 +430,7 @@ const lut = {
     delete f.properties['class']
     return f
  },
-  osm_planet_heritage_area_p: f => {
+  pois_heritage_ap: f => {
     f.tippecanoe = {
       layer: 'heritage',
       minzoom: 13,
@@ -428,7 +439,7 @@ const lut = {
     delete f.properties['class']
     return f 
 },
-  osm_planet_landuse_park_reserve: f => {
+  landuse_parkreserve_a: f => {
     f.tippecanoe = {
       layer: 'area_park',
       minzoom: 7,
@@ -437,7 +448,7 @@ const lut = {
     delete f.properties['class']
     return f 
 },
-  osm_planet_landuse_points: f => {
+  landuse_other_p: f => {
     f.tippecanoe = {
       layer: 'lu_pt',
       minzoom: 10,
@@ -445,7 +456,7 @@ const lut = {
     }
     return f 
 },
-  osm_planet_other_area_p: f => {
+  pois_other_ap: f => {
     f.tippecanoe = {
       layer: 'otherarea',
       minzoom: 15,
@@ -453,7 +464,7 @@ const lut = {
     }
     return f 
 },
-  osm_planet_places: f => {
+  places_all_p: f => {
     f.tippecanoe = {
       layer: 'osm_place',
       minzoom: 7,
@@ -461,7 +472,7 @@ const lut = {
     }
     return f 
 },
-  osm_planet_places_areas: f => {
+  places_all_a: f => {
     f.tippecanoe = {
       layer: 'place_a',
       minzoom: 10,
@@ -469,7 +480,7 @@ const lut = {
     }
     return f 
 },
-  osm_planet_public_area_p: f => {
+  pois_public_ap: f => {
     f.tippecanoe = {
       layer: 'public',
       minzoom: 11,
@@ -477,7 +488,7 @@ const lut = {
     }
     return f 
 },
-  osm_planet_transport_area_p: f => {
+  pois_transport_ap: f => {
     f.tippecanoe = {
       layer: 'transareap',
       maxzoom: 15
@@ -491,7 +502,7 @@ const lut = {
     }
     return f 
 },
-  osm_planet_services_area_p: f => {
+  pois_services_ap: f => {
     f.tippecanoe = {
       layer: 'serviceap',
       minzoom: 13,
@@ -499,7 +510,7 @@ const lut = {
     }
     return f 
 },
-  osm_planet_services_areas: f => {
+  pois_services_a: f => {
     f.tippecanoe = {
       layer: 'service_a',
       minzoom: 13,

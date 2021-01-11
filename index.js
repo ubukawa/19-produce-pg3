@@ -186,7 +186,8 @@ const fetch = (client, database, table, downstream) => {
 const dumpAndModify = async (bbox, relation, downstream, moduleKey) => {
   return new Promise((resolve, reject) => {
     const startTime = new Date()
-    const [database, table] = relation.split('::')
+//    const [database, table] = relation.split('::')
+    const [database, schema, table] = relation.split('::')
     if (!pools[database]) {
       pools[database] = new Pool({
         host: host,
@@ -200,22 +201,24 @@ const dumpAndModify = async (bbox, relation, downstream, moduleKey) => {
       if (err) throw err
       let sql = `
 SELECT column_name FROM information_schema.columns 
-  WHERE table_name='${table}' ORDER BY ordinal_position`
+//  WHERE table_name='${table}' ORDER BY ordinal_position`
+  WHERE table_schema='${schema}' AND table_name='${table}' ORDER BY ordinal_position`
       let cols = await client.query(sql)
       cols = cols.rows.map(r => r.column_name).filter(r => r !== 'geom')
       cols = cols.filter(v => !propertyBlacklist.includes(v))
       // ST_AsGeoJSON(ST_Intersection(ST_MakeValid(${table}.geom), envelope.geom))
-//      cols.push(`ST_AsGeoJSON(${table}.geom)`)
-      cols.push(`ST_AsGeoJSON(ST_Transform(${table}.geom, 4326))`)
+      cols.push(`ST_AsGeoJSON(${schema}.${table}.geom)`)
+//      cols.push(`ST_AsGeoJSON(ST_Transform(${table}.geom, 4326))`)
       await client.query(`BEGIN`)
       sql = `
 DECLARE cur CURSOR FOR 
 WITH 
-  envelope AS (SELECT ST_Transform(ST_MakeEnvelope(${bbox.join(', ')}, 4326), 3857) AS geom)
+//  envelope AS (SELECT ST_Transform(ST_MakeEnvelope(${bbox.join(', ')}, 4326), 3857) AS geom)
+  envelope AS (ST_MakeEnvelope(${bbox.join(', ')}, 4326) AS geom)
 SELECT 
   ${cols.toString()}
-FROM ${table}
-JOIN envelope ON ${table}.geom && envelope.geom
+FROM ${schema}.${table}
+JOIN envelope ON ${schema}.${table}.geom && envelope.geom
 ` 
       cols = await client.query(sql)
       try {

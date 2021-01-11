@@ -203,8 +203,9 @@ const dumpAndModify = async (bbox, relation, downstream, moduleKey) => {
       if (err) throw err
       let sql = `
 SELECT column_name FROM information_schema.columns 
-//  WHERE table_name='${table}' ORDER BY ordinal_position`
-  WHERE table_schema='${schema}' AND table_name='${table}' ORDER BY ordinal_position`
+ WHERE table_name='${table}' AND table_schema='${schema}' ORDER BY ordinal_position`
+//WHERE table_name='${table}' ORDER BY ordinal_position`
+
       let cols = await client.query(sql)
       cols = cols.rows.map(r => r.column_name).filter(r => r !== 'geom')
       cols = cols.filter(v => !propertyBlacklist.includes(v))

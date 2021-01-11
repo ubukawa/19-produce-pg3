@@ -216,7 +216,7 @@ SELECT column_name FROM information_schema.columns
 DECLARE cur CURSOR FOR 
 WITH 
 //  envelope AS (SELECT ST_Transform(ST_MakeEnvelope(${bbox.join(', ')}, 4326), 3857) AS geom)
-  envelope AS (ST_MakeEnvelope(${bbox.join(', ')}, 4326) AS geom)
+  envelope AS (SELECT ST_MakeEnvelope(${bbox.join(', ')}, 4326) AS geom)
 SELECT 
   ${cols.toString()}
 FROM ${schema}.${table}

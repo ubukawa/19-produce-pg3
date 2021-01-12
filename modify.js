@@ -93,6 +93,10 @@ const minzoomRoad = (f) => {
 const minzoomWater = (f) => {
   if (f.properties.fclass === 'water') {
     return 6
+  } else if (f.properties.fclass === 'lake') {
+    return 6
+  } else if (f.properties.fclass === 'pond') {
+    return 6
   } else if (f.properties.fclass === 'glacier') {
     return 6
   } else if (f.properties.fclass === 'wetland') {

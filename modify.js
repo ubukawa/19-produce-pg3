@@ -99,10 +99,10 @@ const minzoomWater = (f) => {
     return 6
   } else if (f.properties.fclass === 'glacier') {
     return 6
+  } else if (f.properties.fclass === 'riverbank') {
+    return 7
   } else if (f.properties.fclass === 'wetland') {
     return 8
-  } else if (f.properties.fclass === 'riverbank') {
-    return 9
   } else if (f.properties.fclass === 'basin') {
     return 9
   } else if (f.properties.fclass === 'reservoir') {

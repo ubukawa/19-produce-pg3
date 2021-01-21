@@ -35,7 +35,8 @@ sde_pg_3::vectortile::pois_water_p
 sde_pg_3::vectortile::pois_worship_ap            
 sde_pg_3::vectortile::pois_worship_p             
 sde_pg_3::vectortile::railways_all_l             
-sde_pg_3::vectortile::roads_all_a                
+sde_pg_3::vectortile::roads_all_a
+sde_pg_3::vectortile::roads_special_l                
 sde_pg_3::vectortile::roads_major_l              
 sde_pg_3::vectortile::roads_minor_l              
 sde_pg_3::vectortile::roads_other_l              

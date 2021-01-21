@@ -218,6 +218,17 @@ const lut = {
     delete f.properties['ungsc_mission']
     return f
   },
+  roads_special_l: f => {
+    f.tippecanoe = {
+      layer: 'road',
+      minzoom: minzoomRoad(f),
+      maxzoom: 15
+    }
+    delete f.properties['class']
+    delete f.properties['ungsc_ctry']
+    delete f.properties['ungsc_mission']
+    return f
+  },
   // 5. railway
   railways_all_l: f => {
     f.tippecanoe = {

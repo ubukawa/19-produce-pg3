@@ -24,10 +24,10 @@ const dbUser = config.get('dbUser')
 const dbPassword = config.get('dbPassword')
 const relations = config.get('relations')
 const defaultDate = new Date(config.get('defaultDate'))
-//const mbtilesDir = config.get('mbtilesDir')
-const mbtilesDirP = config.get('mbtilesDirP')
+//const mbtilesDir = config.get('mbtilesDir') 
+const mbtilesDir = config.get('mbtilesDir_every') //edited 2020-01-22
 const propertyBlacklist = config.get('propertyBlacklist')
-const priorityTilelist = config.get('priorityTilelist')
+const conversionTilelist = config.get('everydayTilelist') //edited 2021-01-22
 const spinnerString = config.get('spinnerString')
 const fetchSize = config.get('fetchSize')
 
@@ -100,7 +100,7 @@ const getScores = async () => {
     for (let x = 0; x < 2 ** Z; x++) {
       for (let y = 0; y < 2 ** Z; y++) {
         const moduleKey = `${Z}-${x}-${y}`
-        const path = `${mbtilesDirP}/${moduleKey}.mbtiles`
+        const path = `${mbtilesDir}/${moduleKey}.mbtiles`
         let mtime = defaultDate
         let size = 0
         if (fs.existsSync(path)) {
@@ -246,8 +246,8 @@ const queue = new Queue(async (t, cb) => {
   const queueStats = queue.getStats()
   const [z, x, y] = moduleKey.split('-').map(v => Number(v))
   const bbox = tilebelt.tileToBBOX([x, y, z])
-  const tmpPath = `${mbtilesDirP}/part-${moduleKey}.mbtiles`
-  const dstPath = `${mbtilesDirP}/${moduleKey}.mbtiles`
+  const tmpPath = `${mbtilesDir}/part-${moduleKey}.mbtiles`
+  const dstPath = `${mbtilesDir}/${moduleKey}.mbtiles`
 
 /// TEMP
 //if (fs.existsSync(dstPath)) return cb()
@@ -307,7 +307,7 @@ const queue = new Queue(async (t, cb) => {
 const queueTasks = () => {
   let moduleKeys = Object.keys(modules)
   moduleKeys.sort((a, b) => modules[b].score - modules[a].score)
-for (let moduleKey of priorityTilelist) {
+for (let moduleKey of conversionTilelist) {
 //  for (let moduleKey of moduleKeys) {
 //  for (let moduleKey of ['6-34-30','6-34-31','6-34-32','6-35-30','6-35-31','6-35-32','6-36-30','6-36-31','6-36-32','6-37-30','6-37-31','6-37-32','6-38-30','6-38-31','6-38-32']) { //// TEMP
     //if (modules[moduleKey].score > 0) {

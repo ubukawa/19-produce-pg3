@@ -22,12 +22,12 @@ vi config/default.hjson
 node index.js
 ```  
 
-## run (priority tiles)
+## run (priority tiles -update everyday)
 ```console
-node index_priority.js
+node index_everyday.js
 ```  
 
 ## run (other tiles)
 ```console
-node index_rest.js
+node index_XXXday.js
 ```  
